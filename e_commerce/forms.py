@@ -56,7 +56,7 @@ class RegisterForm(forms.Form):
     
     def clean_email(self):
         email   = self.cleaned_data.get('email')
-        qs      = User.objects.filer(email=email)
+        qs      = User.objects.filter(email=email)
         if qs.exists():
             raise forms.ValidationError('Esse email já foi cadastrado, tente outro!')
         return email
@@ -64,7 +64,7 @@ class RegisterForm(forms.Form):
     def clean(self):
         data        = self.cleaned_data
         password    = self.cleaned_data.get('password')
-        password    = self.cleaned_data.get('password2')
+        password2   = self.cleaned_data.get('password2')
         if password != password2:
             raise forms.ValidationError("As senham devem ser iguais!")
         return data
